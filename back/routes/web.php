@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\TesteController;
+use App\Http\Controllers\DocumentoController;
+use App\Http\Controllers\TipoDocumentoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,10 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('/tipo')->group(function () {
+    Route::get('/', [TipoDocumentoController::class, 'index']);
+    Route::get('/{id}', [TipoDocumentoController::class, 'show']);
+    Route::post('/', [TipoDocumentoController::class, 'store']);
+    Route::put('/{id}', [TipoDocumentoController::class, 'update']);
+    Route::delete('/{id}', [TipoDocumentoController::class, 'destroy']);
 });
 
-Route::get('/teste', [TesteController::class, 'ola']);
-Route::get('/teste2', [TesteController::class, 'ola2']);
-
+Route::prefix('/documento')->group(function () {
+    Route::get('/', [DocumentoController::class, 'index']);
+    Route::get('/{id}', [DocumentoController::class, 'show']);
+    Route::post('/', [DocumentoController::class, 'store']);
+    Route::put('/{id}', [DocumentoController::class, 'update']);//fazer
+    Route::delete('/{id}', [DocumentoController::class, 'destroy']);//fazer
+});

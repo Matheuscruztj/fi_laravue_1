@@ -7,6 +7,9 @@ use App\Models\TipoDocumento;
 use Exception;
 
 class TesteController extends Controller {
+    public function ola3() {
+        return 'ola3';
+    }
     public function ola(){
         try{
             $tip = new TipoDocumento();

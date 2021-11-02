@@ -6,6 +6,7 @@ use App\Models\Documento;
 use App\Response\JsonResponse;
 use Exception;
 use Illuminate\Http\Request;
+use PhpParser\Comment\Doc;
 
 class DocumentoController extends Controller
 {
@@ -108,22 +109,76 @@ class DocumentoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\documento  $documento
+     * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, documento $documento)
+    public function update(Request $request, $id)
     {
-        //
+        $target = null;
+        $feedback = null;
+
+        try{
+            $documento = Documento::find($id) ?  Documento::find($id)->first() : null;
+    
+            if(!$documento){
+                return JsonResponse::error('documento não encontrado', []);
+            }
+
+            $rulesAndFeedback = Documento::rulesAndFeedback();
+            foreach($rulesAndFeedback as $obj){
+                $target = $obj['target'];
+                $feedback = $obj['feedback'];
+
+                $request->validate([
+                    $obj['target'] => $obj['rule']
+                ], [$feedback]);
+            }
+
+            $updateNecessary = false;
+            if($request->nome && $request->nome != $documento->nome)
+                $documento->nome = $request->nome;
+                $updateNecessary = true;
+            
+            if($request->tipo_documento && $request->tipo_documento != $documento->tipo_documento_id)
+                $documento->tipo_documento_id = $request->tipo_documento;
+                $updateNecessary = true;
+            
+            if($updateNecessary)
+                return JsonResponse::warning('Atualização nao é necessária', []);
+            
+            $documento->save();
+
+            return JsonResponse::success('Documento alterado com sucesso', [$documento->toArray()]);
+        }catch(Exception $e){
+            if(isset($e->validator->customMessages)){
+                $erros[] = [
+                    'coluna' => $target,
+                    'regra' => $feedback,
+                ];
+                return JsonResponse::error('Corrija os seguintes erros e tente novamente', $erros);
+            }
+
+            return JsonResponse::error('Problema durante o processo', [$e->getMessage()]);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\documento  $documento
-     * @return \Illuminate\Http\Response
      */
-    public function destroy(documento $documento)
+    public function destroy($id)
     {
-        //
+        try{
+            $documento = Documento::find($id) ?  Documento::find($id)->first() : null;
+    
+            if(!$documento){
+                return JsonResponse::error('Documento não encontrado', []);
+            }
+
+            $documento->delete();
+            return JsonResponse::success('Documento removido com sucesso!', []);    
+        }catch(Exception $e){
+            return JsonResponse::error('Problema durante o processo', [$e->getMessage()]);
+        }
     }
 }

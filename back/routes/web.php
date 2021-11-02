@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DocumentoController;
+use App\Http\Controllers\TesteController;
 use App\Http\Controllers\TipoDocumentoController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,3 +31,4 @@ Route::prefix('/documento')->group(function () {
     Route::put('/{id}', [DocumentoController::class, 'update']);//fazer
     Route::delete('/{id}', [DocumentoController::class, 'destroy']);//fazer
 });
+

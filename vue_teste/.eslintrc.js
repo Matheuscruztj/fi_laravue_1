@@ -10,6 +10,12 @@ module.exports = {
     // 'vue/no-unused-vars': 'error'
     'vue/singleline-html-element-content-newline': 'off',
     'vue/multiline-html-element-content-newline': 'off',
-    'vue/component-definition-name-casing': 'off'
+    'vue/component-definition-name-casing': 'off',
+    "vue/no-unused-vars": "off",
+    "vue/html-indent": "off",
+    "vue/max-attributes-per-line": "off",
+    "vue/html-self-closing": "off",
+    "vue/attributes-order": "off",
+    "vue/v-slot-style": "off"
   }
 }

@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <div class="container d-flex justify-content-center align-items-center">
+    <!-- container d-flex justify-content-center align-items-center -->
+    <div class="">
       <router-view />
     </div>
   </div>

@@ -14,8 +14,8 @@
   "dependencies": {
     "@vue/eslint-config-airbnb": "^5.3.0",
     "axios": "^0.21.1",
-    "bootstrap": "^5.0.1",
-    "bootstrap-vue": "^2.21.2",
+    "bootstrap": "4.5.3",
+    "bootstrap-vue": "^2.6.11",
     "core-js": "^3.14.0",
     "mini-css-extract-plugin": "^1.6.0",
     "node-sass": "^6.0.0",

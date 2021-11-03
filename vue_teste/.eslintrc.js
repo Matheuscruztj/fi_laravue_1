@@ -16,6 +16,7 @@ module.exports = {
     "vue/max-attributes-per-line": "off",
     "vue/html-self-closing": "off",
     "vue/attributes-order": "off",
-    "vue/v-slot-style": "off"
+    "vue/v-slot-style": "off",
+    "vue/require-explicit-emits": "off"
   }
 }

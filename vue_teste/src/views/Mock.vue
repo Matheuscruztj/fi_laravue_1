@@ -1,18 +1,7 @@
 /* eslint-disable */
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand href="#">NavBar</b-navbar-brand>
-
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-      <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav class="ms-auto navbar-right">
-          <b-nav-item href="#">Link</b-nav-item>
-          <b-nav-item href="#" disabled>Disabled</b-nav-item>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
+    <Navbar></Navbar>
 
     <div class="container pt-2 mb-4">
       <div class="d-flex mb-4" style="justify-content: right">
@@ -116,55 +105,53 @@
   </div>
 </template>
 <script>
-  // import MyForm from '../components/MyForm.vue';
-  // import Ola from '../components/Ola.vue';
-
-  export default {
-    name: 'Home',
-    components: {
-      // MyForm
-    },
-    data() {
-      return {
-        selected: null,
-        options: [
-          { value: null, text: 'Selecione uma opção' },
-          { value: 'a', text: 'This is First option' }
-        ],
-        items: [
-          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-          { age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-          { age: 38, first_name: 'Jami', last_name: 'Carney' }
-        ],
-        fields: [
-          {
-            key: 'first_name',
-            label: 'Nome'
-          },
-          {
-            key: 'last_name',
-            label: 'Sobrenome'
-          },
-          {
-            key: 'actions',
-            label: 'Ações'
-          },
-        ]
-      }
-    },
-    methods: {
-      excluirRegistro() {
-        this.$refs.modalExcluir.show();
-      },
-      exibirToast() {
-        this.$bvToast.toast(`This is toast number`, {
-          title: 'BootstrapVue Toast',
-          autoHideDelay: 2000,
-        })
-      }
+    import Navbar from '../components/Navbar.vue';
+    export default {
+        name: 'Mock',
+        components: {
+            Navbar
+        },
+        data() {
+            return {
+            selected: null,
+            options: [
+                { value: null, text: 'Selecione uma opção' },
+                { value: 'a', text: 'This is First option' }
+            ],
+            items: [
+                { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+                { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+                { age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+                { age: 38, first_name: 'Jami', last_name: 'Carney' }
+            ],
+            fields: [
+                {
+                key: 'first_name',
+                label: 'Nome'
+                },
+                {
+                key: 'last_name',
+                label: 'Sobrenome'
+                },
+                {
+                key: 'actions',
+                label: 'Ações'
+                },
+            ]
+            }
+        },
+        methods: {
+            excluirRegistro() {
+            this.$refs.modalExcluir.show();
+            },
+            exibirToast() {
+            this.$bvToast.toast(`This is toast number`, {
+                title: 'BootstrapVue Toast',
+                autoHideDelay: 2000,
+            })
+            }
+        }
     }
-  }
 </script>
 <style>
   .button-box {

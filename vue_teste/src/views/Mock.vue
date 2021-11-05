@@ -3,6 +3,11 @@
   <div>
     <Navbar></Navbar>
 
+    <Modal 
+      :operacao="operacao"
+      @confirmed="onConfirmed"
+    ></Modal>
+
     <div class="container pt-2 mb-4">
       <div class="d-flex mb-4" style="justify-content: right">
         <div class="p-2 bg-primary text-white rounded-top rounded-bottom">
@@ -13,7 +18,7 @@
 
     <div class="container pt-2 mb-4">
       <div class="d-flex mb-4" style="justify-content: right">
-        <b-button @click="excluirRegistro()">Abrir modal</b-button>
+        <b-button @click="teste(); $bvModal.show('abc');">Abrir modal</b-button>
 
         <b-modal ref="modalExcluir">
             <p> Tem certeza que deseja remover esse registro? </p>
@@ -106,13 +111,17 @@
 </template>
 <script>
     import Navbar from '../components/Navbar.vue';
+    import Modal from '../components/Modal.vue';
+
     export default {
         name: 'Mock',
         components: {
-            Navbar
+          Navbar, 
+          Modal
         },
         data() {
             return {
+            operacao: null,
             selected: null,
             options: [
                 { value: null, text: 'Selecione uma opção' },
@@ -145,10 +154,13 @@
             this.$refs.modalExcluir.show();
             },
             exibirToast() {
-            this.$bvToast.toast(`This is toast number`, {
-                title: 'BootstrapVue Toast',
-                autoHideDelay: 2000,
-            })
+              this.$bvToast.toast(`This is toast number`, {
+                  title: 'BootstrapVue Toast',
+                  autoHideDelay: 2000,
+              })
+            },
+            teste: function() {
+              this.operacao = 'adicionar';
             }
         }
     }

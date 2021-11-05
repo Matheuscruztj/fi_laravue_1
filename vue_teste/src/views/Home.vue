@@ -1,18 +1,45 @@
 /* eslint-disable */
 <template>
   <div>
-    <Navbar></Navbar>
+    <b-navbar toggleable="lg" type="dark" variant="info">
+      <b-navbar-brand href="#">NavBar</b-navbar-brand>
+
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav class="ms-auto navbar-right">
+          <b-nav-item href="#">Link</b-nav-item>
+          <b-nav-item href="#" disabled>Disabled</b-nav-item>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
 
     <div class="container pt-2 mb-4">
       <div class="d-flex mb-4" style="justify-content: right">
-        <button type="button" class="btn btn-primary" @click="showFormTemplate()">Criar documento</button>
+        <div class="p-2 bg-primary text-white rounded-top rounded-bottom">
+          Criar
+        </div>
       </div>
     </div>
 
-    <modal 
-      :operacao="operacao"
-      @confirmed="onConfirmed"
-    ></modal>
+    <div class="container pt-2 mb-4">
+      <div class="d-flex mb-4" style="justify-content: right">
+        <b-button @click="excluirRegistro()">Abrir modal</b-button>
+
+        <b-modal ref="modalExcluir">
+            <p> Tem certeza que deseja remover esse registro? </p>
+    
+            <template v-slot:modal-footer="{ hide , ok }">
+              <b-button size="sm" variant="danger" @click="hide()">
+                Não
+              </b-button>
+              <b-button size="sm" variant="primary" @click="ok()">
+                Sim
+              </b-button>
+            </template>
+        </b-modal>
+      </div>
+    </div>
 
     <div class="container pt-2 mb-4">
       <div class="d-flex mb-4" style="justify-content: right">
@@ -24,10 +51,10 @@
       </div>
     </div>
 
-    <div v-if="templateVisible">
+    <div>
       <div class="container card pt-2 pb-2">
         <form>
-          <div class="mb-3" v-if="!insertOperation">
+          <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Id</label>
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="1" disabled>
           </div>
@@ -89,19 +116,16 @@
   </div>
 </template>
 <script>
-  import Navbar from '../components/Navbar.vue';
-  import Modal from '../components/Modal.vue';
+  // import MyForm from '../components/MyForm.vue';
+  // import Ola from '../components/Ola.vue';
 
   export default {
-    name: 'Index',
+    name: 'Home',
     components: {
-      Navbar,
-      Modal
+      // MyForm
     },
     data() {
       return {
-        operacao: '',
-        templateVisible: false,
         selected: null,
         options: [
           { value: null, text: 'Selecione uma opção' },
@@ -129,32 +153,17 @@
         ]
       }
     },
-    computed: {
-    },
     methods: {
-      showFormTemplate: function() {
-        this.templateVisible = !this.templateVisible;
-        this.insertOperation = true;
-      },
-      updateRegister: function() {
-        this.insertOperation = false;
-      },
-      teste: function() {
-        this.operacao = 'adicionar';
-      },
-      closeModal() {
-        this.isModalVisible = false;
+      excluirRegistro() {
+        this.$refs.modalExcluir.show();
       },
       exibirToast() {
         this.$bvToast.toast(`This is toast number`, {
           title: 'BootstrapVue Toast',
           autoHideDelay: 2000,
         })
-      },
-      onConfirmed(obj) {
-        console.log(obj);
       }
-    },
+    }
   }
 </script>
 <style>
